@@ -1,3 +1,14 @@
 spring:
   application:
     name: lottery-service
+  datasource:
+    url: jdbc:${DATABASE_NAME:postgresql}://${DATABASE_JDBC_HOST:localhost}:${DATABASE_JDBC_PORT:5432}/${DATABASE_JDBC_BASE:lottery-service}?currentSchema=${DATABASE_JDBC_SCHEMA:lottery_service}
+    username: ${DATABASE_JDBC_USER:lottery_service}
+    password: ${DATABASE_JDBC_PASS:lottery_service}
+    driverClassName: ${DATABASE_JDBC_DRIVER:org.postgresql.Driver}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  jackson:
+    property-naming-strategy: SNAKE_CASE
