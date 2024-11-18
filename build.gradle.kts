@@ -1,3 +1,9 @@
+
+val exposedVersion: String by ext
+val postgresqlVersion: String by ext
+val flywayVersion: String by ext
+val javaMoneyMonetaVersion: String by ext
+
 plugins {
     kotlin("jvm") version "1.9.25"
     kotlin("plugin.spring") version "1.9.25"
@@ -23,6 +29,7 @@ repositories {
 dependencies {
     kotlin()
     springBoot()
+    database()
     unitTest()
 }
 
@@ -31,7 +38,15 @@ fun DependencyHandlerScope.kotlin() {
 }
 
 fun DependencyHandlerScope.springBoot() {
-    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+}
+
+fun DependencyHandlerScope.database() {
+    implementation("org.jetbrains.exposed:exposed-spring-boot-starter:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposedVersion")
+    implementation("org.postgresql:postgresql:$postgresqlVersion")
+    implementation("org.flywaydb:flyway-core:$flywayVersion")
 }
 
 fun DependencyHandlerScope.unitTest() {
